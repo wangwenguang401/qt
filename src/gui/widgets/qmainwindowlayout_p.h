@@ -305,6 +305,7 @@ private Q_SLOTS:
 #ifndef QT_NO_DOCKWIDGET
 #ifndef QT_NO_TABBAR
     void tabChanged();
+    void tabMoved(int from, int to);
 #endif
 #endif
 private:
