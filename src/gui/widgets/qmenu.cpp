@@ -2436,12 +2436,17 @@ QMenu::event(QEvent *e)
             return true;
         }
     } break;
-    case QEvent::ContextMenu:
-        if(d->menuDelayTimer.isActive()) {
+    case QEvent::MouseButtonPress:
+    case QEvent::ContextMenu: {
+        bool canPopup = true;
+        if (e->type() == QEvent::MouseButtonPress)
+            canPopup = (static_cast<QMouseEvent*>(e)->button() == Qt::LeftButton);
+        if (canPopup && d->menuDelayTimer.isActive()) {
             d->menuDelayTimer.stop();
             internalDelayedPopup();
         }
         break;
+    }
     case QEvent::Resize: {
         QStyleHintReturnMask menuMask;
         QStyleOption option;
