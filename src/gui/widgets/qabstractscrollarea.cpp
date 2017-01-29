@@ -297,6 +297,10 @@ void QAbstractScrollAreaPrivate::init()
 #ifndef Q_WS_MAC
 #ifndef QT_NO_GESTURES
     viewport->grabGesture(Qt::PanGesture);
+#ifdef Q_WS_WIN
+    if (QApplicationPrivate::HasTouchSupport)
+        setSingleFingerPanEnabled(true);
+#endif
 #endif
 #endif
 }

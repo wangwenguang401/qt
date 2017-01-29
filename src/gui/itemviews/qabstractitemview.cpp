@@ -64,6 +64,10 @@
 #endif
 #include <private/qsoftkeymanager_p.h>
 
+#ifdef Q_WS_WIN
+#include <private/qapplication_p.h>
+#endif
+
 QT_BEGIN_NAMESPACE
 
 QAbstractItemViewPrivate::QAbstractItemViewPrivate()
@@ -139,6 +143,13 @@ void QAbstractItemViewPrivate::init()
 
 #ifdef QT_SOFTKEYS_ENABLED
     doneSoftKey = QSoftKeyManager::createKeyedAction(QSoftKeyManager::DoneSoftKey, Qt::Key_Back, q);
+#endif
+
+#ifdef Q_WS_WIN
+    if (QApplicationPrivate::HasTouchSupport) {
+        horizontalScrollMode = QAbstractItemView::ScrollPerPixel;
+        verticalScrollMode = QAbstractItemView::ScrollPerPixel;
+    }
 #endif
 }
 
