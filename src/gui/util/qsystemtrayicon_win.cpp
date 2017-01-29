@@ -138,13 +138,8 @@ QSystemTrayIconSys::QSystemTrayIconSys(QSystemTrayIcon *object)
     : hIcon(0), q(object), ignoreNextMouseRelease(false)
 
 {
-    if (QSysInfo::windowsVersion() >= QSysInfo::WV_VISTA) {
-        notifyIconSize = sizeof(NOTIFYICONDATA);
-        version = NOTIFYICON_VERSION_4;
-    } else {
-        notifyIconSize = NOTIFYICONDATA_V2_SIZE;
-        version = NOTIFYICON_VERSION;
-    }
+    notifyIconSize = NOTIFYICONDATA_V2_SIZE;
+    version = NOTIFYICON_VERSION;
 
     maxTipLength = 128;
 
