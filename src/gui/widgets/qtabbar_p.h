@@ -77,7 +77,8 @@ public:
         :currentIndex(-1), pressedIndex(-1), shape(QTabBar::RoundedNorth), layoutDirty(false),
         drawBase(true), scrollOffset(0), elideModeSetByUser(false), useScrollButtonsSetByUser(false), expanding(true), closeButtonOnTabs(false),
         selectionBehaviorOnRemove(QTabBar::SelectRightTab), paintWithOffsets(true), movable(false),
-        dragInProgress(false), documentMode(false), movingTab(0)
+        dragInProgress(false), documentMode(false), changeCurrentOnDrag(false),
+        switchTabCurrentIndex(-1), switchTabTimerId(0), movingTab(0)
 #ifdef Q_WS_MAC
         , previousPressedIndex(-1)
 #endif
@@ -199,6 +200,10 @@ public:
     bool movable;
     bool dragInProgress;
     bool documentMode;
+    bool changeCurrentOnDrag;
+
+    int switchTabCurrentIndex;
+    int switchTabTimerId;
 
     QWidget *movingTab;
 #ifdef Q_WS_MAC
@@ -238,6 +243,7 @@ public:
         }
     }
 
+    void killSwitchTabTimer();
 };
 
 class CloseButton : public QAbstractButton
